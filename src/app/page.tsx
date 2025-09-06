@@ -92,6 +92,18 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <section className={theme.cta}>
+        <div className={`container`}>
+          <div className={theme.ctaContent}>
+            <h2>¿Listo para transformar tus finanzas?</h2>
+            <p>Únete a miles de usuarios que ya están tomando el control de su futuro financiero</p>
+            <Link href="/signup" className={`btn btn-primary btn-large`}>
+              Crear Cuenta Gratuita
+            </Link>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
