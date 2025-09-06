@@ -104,6 +104,33 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <footer className={theme.footer}>
+        <div className={`container`}>
+          <div className={theme.footerContent}>
+            <div className={theme.footerBrand}>
+              <h3>💰 FinanzasPro</h3>
+              <p>Tu compañero en el camino hacia la libertad financiera</p>
+            </div>
+            <div className={theme.footerLinks}>
+              <div className={theme.footerColumn}>
+                <h4>Producto</h4>
+                <Link href="#features">Características</Link>
+                <Link href="/pricing">Precios</Link>
+              </div>
+              <div className={theme.footerColumn}>
+                <h4>Soporte</h4>
+                <Link href="/help">Ayuda</Link>
+                <Link href="/contact">Contacto</Link>
+              </div>
+            </div>
+          </div>
+          <div className={theme.footerBottom}>
+            <p>&copy; 2025 FinanzasPro. Todos los derechos reservados.</p>
+            <p className={theme.developerCredit}>Desarrollado por Alberto Viera</p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

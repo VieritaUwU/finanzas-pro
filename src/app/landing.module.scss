@@ -28,6 +28,7 @@
         }
     }
 
+    // Hero Section
     .hero {
         padding: 4rem 0;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -97,6 +98,7 @@
         }
     }
 
+    // Features Section
     .features {
         padding: 5rem 0;
         background: var(--card-background);
@@ -147,6 +149,7 @@
         }
     }
 
+    // CTA Section
     .cta {
         padding: 4rem 0;
         background: var(--primary-color);
@@ -164,6 +167,74 @@
                 font-size: 1.25rem;
                 margin-bottom: 2rem;
                 opacity: 0.9;
+            }
+        }
+    }
+
+    // Footer Section
+    .footer {
+        background: var(--foreground);
+        color: white;
+        padding: 3rem 0 1rem;
+
+        .footerContent {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footerBrand {
+            h3 {
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+            }
+
+            p {
+                opacity: 0.8;
+                line-height: 1.6;
+            }
+        }
+
+        .footerLinks {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footerColumn {
+            h4 {
+                font-weight: 600;
+                margin-bottom: 1rem;
+            }
+
+            a {
+                display: block;
+                margin-bottom: 0.5rem;
+                opacity: 0.8;
+                transition: opacity 0.2s ease;
+
+                &:hover {
+                    opacity: 1;
+                }
+            }
+        }
+
+        .footerBottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1rem;
+            text-align: center;
+            opacity: 0.6;
+
+            p {
+                color: rgba(255, 255, 255, 0.7);
+                margin: 0;
+
+                &.developerCredit {
+                    margin-top: 0.5rem;
+                    font-size: 0.875rem;
+                    color: rgba(255, 255, 255, 0.6);
+                    font-style: italic;
+                }
             }
         }
     }
