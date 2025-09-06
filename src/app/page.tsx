@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BarChart3, User, Shield, Smartphone } from "lucide-react";
 import theme from "./landing.module.scss";
 
 export default function Home() {
@@ -51,6 +52,42 @@ export default function Home() {
                 <div className={theme.chartBar} style={{ height: '90%' }}></div>
                 <div className={theme.chartBar} style={{ height: '70%' }}></div>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="features" className={theme.features}>
+        <div className={`container`}>
+          <h2 className={theme.sectionTitle}>Características Principales</h2>
+          <div className={theme.featuresGrid}>
+            <div className={theme.featureCard}>
+              <div className={theme.featureIcon}>
+                <BarChart3 size={32} color={`var(--primary-color)`} />
+              </div>
+              <h3>Gráficas Detalladas</h3>
+              <p>Visualiza tus finanzas con gráficas interactivas y descarga reportes en PDF</p>
+            </div>
+            <div className={theme.featureCard}>
+              <div className={theme.featureIcon}>
+                <User size={32} color={`var(--primary-color)`} />
+              </div>
+              <h3>Perfil Personalizable</h3>
+              <p>Edita tu perfil y personaliza tu experiencia según tus necesidades</p>
+            </div>
+            <div className={theme.featureCard}>
+              <div className={theme.featureIcon}>
+                <Shield size={32} color={`var(--primary-color)`} />
+              </div>
+              <h3>Seguridad Total</h3>
+              <p>Tus datos están protegidos con la mejor tecnología de seguridad</p>
+            </div>
+            <div className={theme.featureCard}>
+              <div className={theme.featureIcon}>
+                <Smartphone size={32} color={`var(--primary-color)`} />
+              </div>
+              <h3>Acceso Multiplataforma</h3>
+              <p>Accede desde cualquier dispositivo, en cualquier momento</p>
             </div>
           </div>
         </div>
