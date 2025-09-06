@@ -15,7 +15,7 @@ export default function Home() {
               <Link href="/login" className={`btn btn-outline ${theme.btn}`}>
                 Iniciar Sesión
               </Link>
-              <Link href="/register" className={`btn btn-primary ${theme.btn}`}>
+              <Link href="/signup" className={`btn btn-primary ${theme.btn}`}>
                 Registrarse
               </Link>
             </div>
