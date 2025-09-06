@@ -1,10 +1,13 @@
 'use client'
 
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { auth } from '@/lib/supabase'
+import { BarChart3, TrendingUp } from 'lucide-react'
 import theme from './dashboard.module.scss'
 
 export default function Dashboard() {
+    const [activeTab, setActiveTab] = useState('overview')
     const router = useRouter()
 
     const handleSignOut = async () => {
@@ -34,6 +37,29 @@ export default function Dashboard() {
                     </div>
                 </div>
             </header>
+
+            <main className={theme.dashboardMain}>
+                <nav className={theme.dashboardNav}>
+                    <button
+                        className={`${theme.navItem} ${activeTab === 'overview' ? theme.active : ''}`}
+                        onClick={() => setActiveTab('overview')}
+                    >
+                        <BarChart3
+                            size={24}
+                        />
+                        Resumen
+                    </button>
+                    <button
+                        className={`${theme.navItem} ${activeTab === 'charts' ? theme.active : ''}`}
+                        onClick={() => setActiveTab('charts')}
+                    >
+                        <TrendingUp
+                            size={24}
+                        />
+                        Gráficas
+                    </button>
+                </nav>
+            </main>
         </div>
     )
 }
