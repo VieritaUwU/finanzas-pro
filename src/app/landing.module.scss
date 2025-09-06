@@ -68,5 +68,32 @@
                 flex-wrap: wrap;
             }
         }
+
+        .heroVisual {
+            display: flex;
+            justify-content: center;
+
+            .dashboardPreview {
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 1rem;
+                padding: 2rem;
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+
+                .chartPlaceholder {
+                    display: flex;
+                    align-items: end;
+                    gap: 0.5rem;
+                    height: 200px;
+
+                    .chartBar {
+                        background: linear-gradient(to top, #ffd700, #ffed4e);
+                        width: 30px;
+                        border-radius: 4px 4px 0 0;
+                        animation: growUp 1s ease-out;
+                    }
+                }
+            }
+        }
     }
 }

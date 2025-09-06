@@ -42,6 +42,17 @@ export default function Home() {
               </Link>
             </div>
           </div>
+          <div className={theme.heroVisual}>
+            <div className={theme.dashboardPreview}>
+              <div className={theme.chartPlaceholder}>
+                <div className={theme.chartBar} style={{ height: '60%' }}></div>
+                <div className={theme.chartBar} style={{ height: '80%' }}></div>
+                <div className={theme.chartBar} style={{ height: '45%' }}></div>
+                <div className={theme.chartBar} style={{ height: '90%' }}></div>
+                <div className={theme.chartBar} style={{ height: '70%' }}></div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </div>
