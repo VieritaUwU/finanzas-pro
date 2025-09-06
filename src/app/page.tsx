@@ -12,10 +12,10 @@ export default function Home() {
               <h2>💰 FinanzasPro</h2>
             </div>
             <div className={theme.navLinks}>
-              <Link href="/login" className={`btn btn-outline`}>
+              <Link href="/login" className={`btn btn-outline ${theme.btn}`}>
                 Iniciar Sesión
               </Link>
-              <Link href="/register" className={`btn btn-primary`}>
+              <Link href="/register" className={`btn btn-primary ${theme.btn}`}>
                 Registrarse
               </Link>
             </div>
