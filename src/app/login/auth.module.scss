@@ -99,6 +99,17 @@
             }
         }
 
+        .errorMessage {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #dc2626;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.875rem;
+            text-align: center;
+        }
+
         .authFooter {
             text-align: center;
             margin-top: 2rem;
@@ -118,6 +129,31 @@
                 &:hover {
                     text-decoration: underline;
                 }
+            }
+        }
+
+        // Button overrides for auth pages
+        .btn {
+            &:disabled {
+                opacity: 0.6;
+                cursor: not-allowed;
+            }
+        }
+
+        // Responsive
+        @media (max-width: 480px) {
+            padding: 0.5rem;
+
+            .auth-form {
+                padding: 1.5rem;
+            }
+
+            .auth-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .auth-form h2 {
+                font-size: 1.5rem;
             }
         }
     }
