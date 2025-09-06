@@ -1,37 +1,18 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import { auth } from '@/lib/supabase'
+import Link from 'next/link'
 import { ArrowLeft } from "lucide-react"
-import Link from "next/link"
-import theme from "./auth.module.scss"
+import theme from '../login/auth.module.scss'
 
-export default function LoginPage() {
+export default function SignupPage() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [loading, setLoading] = useState(false)
-    const [error, setError] = useState('')
-    const router = useRouter()
+    const [confirmPassword, setConfirmPassword] = useState('')
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        setLoading(true)
-        setError('')
-
-        try {
-            const { data, error } = await auth.signIn(email, password)
-
-            if (error) {
-                setError(error.message)
-            } else if (data.user) {
-                router.push('/dashboard')
-            }
-        } catch (err) {
-            setError('Error inesperado. Por favor intenta de nuevo.')
-        } finally {
-            setLoading(false)
-        }
+        console.log("Registro exitoso")
     }
 
     return (
@@ -47,28 +28,21 @@ export default function LoginPage() {
 
                 <div className={theme.authFormContainer}>
                     <div className={theme.authForm}>
-                        <h2>Iniciar Sesión</h2>
+                        <h2>Crear cuenta</h2>
                         <p className={theme.authSubtitle}>
-                            Accede a tu cuenta para gestionar tus finanzas
+                            Únete a FinanzasPro y toma control de tus finanzas
                         </p>
-
-                        {error && (
-                            <div className={theme.errorMessage}>
-                                {error}
-                            </div>
-                        )}
 
                         <form onSubmit={handleSubmit}>
                             <div className={theme.formGroup}>
-                                <label htmlFor="email">Correo Electrónico</label>
+                                <label htmlFor="email">Correo electrónico</label>
                                 <input
-                                    type="email"
                                     id="email"
+                                    type="email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     required
                                     placeholder="tu@email.com"
-                                    disabled={loading}
                                 />
                             </div>
 
@@ -80,25 +54,36 @@ export default function LoginPage() {
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     required
-                                    placeholder="Tu contraseña"
-                                    disabled={loading}
+                                    placeholder="Mínimo 6 caracteres"
+                                    minLength={6}
+                                />
+                            </div>
+
+                            <div className={theme.formGroup}>
+                                <label htmlFor="confirmPassword">Confirmar Contraseña</label>
+                                <input
+                                    type="password"
+                                    id="confirmPassword"
+                                    value={confirmPassword}
+                                    onChange={(e) => setConfirmPassword(e.target.value)}
+                                    required
+                                    placeholder="Repite tu contraseña"
                                 />
                             </div>
 
                             <button
                                 type="submit"
                                 className={`btn btn-primary w-full ${theme.btn}`}
-                                disabled={loading}
                             >
-                                {loading ? 'Iniciando sesión...' : 'Iniciar Sesión'}
+                                Crear Cuenta
                             </button>
                         </form>
 
                         <div className={theme.authFooter}>
                             <p>
-                                ¿No tienes una cuenta?{' '}
-                                <Link href="/signup" className={theme.authLink}>
-                                    Regístrate aquí
+                                ¿Ya tienes una cuenta?{' '}
+                                <Link href="/login" className={theme.authLink}>
+                                    Inicia sesión aquí
                                 </Link>
                             </p>
                         </div>
