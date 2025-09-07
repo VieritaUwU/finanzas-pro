@@ -99,6 +99,10 @@ export default function Dashboard() {
         }
     }
 
+    const handleProfileUpdate = (updatedProfile: UserProfile) => {
+        setUserProfile(updatedProfile)
+    }
+
     return (
         <div className={theme.dashboard}>
             <header className={theme.dashboardHeader}>
@@ -164,9 +168,11 @@ export default function Dashboard() {
             </main>
 
             <ProfileEditModal
+                user={user}
+                profile={userProfile}
                 isOpen={showProfileEdit}
                 onClose={() => setShowProfileEdit(false)}
-                // onProfileUpdate={handleProfileUpdate}
+                onProfileUpdate={handleProfileUpdate}
                 className={theme}
             />
         </div>

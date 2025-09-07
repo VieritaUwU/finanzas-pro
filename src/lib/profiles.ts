@@ -18,17 +18,42 @@ export interface UserProfile {
 // Create or update user profile
 export async function upsertProfile(profile: Partial<UserProfile>) {
   try {
-    const { data, error } = await supabase
+    // First, try to get existing profile
+    const { data: existingProfile } = await supabase
       .from('profiles')
-      .upsert({
-        ...profile,
-        updated_at: new Date().toISOString()
-      })
-      .select()
+      .select('*')
+      .eq('user_id', profile.user_id)
       .single()
 
-    if (error) throw error
-    return { data, error: null }
+    if (existingProfile) {
+      // Update existing profile
+      const { data, error } = await supabase
+        .from('profiles')
+        .update({
+          ...profile,
+          updated_at: new Date().toISOString()
+        })
+        .eq('user_id', profile.user_id)
+        .select()
+        .single()
+
+      if (error) throw error
+      return { data, error: null }
+    } else {
+      // Create new profile
+      const { data, error } = await supabase
+        .from('profiles')
+        .insert({
+          ...profile,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString()
+        })
+        .select()
+        .single()
+
+      if (error) throw error
+      return { data, error: null }
+    }
   } catch (error) {
     console.error('Error upserting profile:', error)
     return { data: null, error }
