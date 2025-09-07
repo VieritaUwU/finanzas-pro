@@ -12,7 +12,7 @@ import {
     FinancialSummary,
     CategoryExpense
 } from '@/lib/database'
-import { OverviewSection } from '@/components/dashboard'
+import { OverviewSection, ChartsSection } from '@/components/dashboard'
 import theme from './dashboard.module.scss'
 
 export default function Dashboard() {
@@ -140,7 +140,16 @@ export default function Dashboard() {
                         <OverviewSection
                             financialSummary={financialSummary}
                             dataLoading={dataLoading}
-                            theme={theme}
+                            className={theme}
+                        />
+                    )}
+
+                    {activeTab === 'charts' && (
+                        <ChartsSection
+                            monthlyData={monthlyData}
+                            categoryExpenses={categoryExpenses}
+                            dataLoading={dataLoading}
+                            className={theme}
                         />
                     )}
                 </div>

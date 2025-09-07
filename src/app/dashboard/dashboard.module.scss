@@ -167,8 +167,43 @@
         }
     }
 
+    // Charts Section
+    .chartsSection {
+        .chartsHeader {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
 
+            h2 {
+                font-size: 1.5rem;
+                font-weight: 700;
+                color: var(--foreground);
+                margin: 0;
+            }
+        }
 
+        .chartsGrid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+
+            .chartContainer {
+                background: #f8fafc;
+                padding: 1.5rem;
+                border-radius: 0.75rem;
+                border: 1px solid var(--border-color);
+
+                h3 {
+                    font-size: 1.125rem;
+                    font-weight: 600;
+                    color: var(--foreground);
+                    margin: 0 0 1rem 0;
+                    text-align: center;
+                }
+            }
+        }
+    }
 
 }
 

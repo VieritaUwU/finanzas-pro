@@ -6,7 +6,7 @@ import StatCard from './StatCard'
 interface OverviewSectionProps {
   financialSummary: FinancialSummary | null
   dataLoading: boolean
-  theme?: {
+  className?: {
     overviewSection?: string
     loadingState?: string
     statsGrid?: string
@@ -16,7 +16,7 @@ interface OverviewSectionProps {
   }
 }
 
-export default function OverviewSection({ financialSummary, dataLoading, theme }: OverviewSectionProps) {
+export default function OverviewSection({ financialSummary, dataLoading, className: theme }: OverviewSectionProps) {
   if (dataLoading) {
     return (
       <div className={theme?.overviewSection}>
