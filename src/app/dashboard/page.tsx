@@ -12,6 +12,7 @@ import {
     FinancialSummary,
     CategoryExpense
 } from '@/lib/database'
+import { UserProfile, getProfile } from '@/lib/profiles'
 import { OverviewSection, ChartsSection, ProfileEditModal } from '@/components/dashboard'
 import theme from './dashboard.module.scss'
 
@@ -20,11 +21,7 @@ export default function Dashboard() {
     const [loading, setLoading] = useState(true)
     const [activeTab, setActiveTab] = useState('overview')
     const [showProfileEdit, setShowProfileEdit] = useState(false)
-    const [profileData, setProfileData] = useState({
-        name: '',
-        phone: '',
-        occupation: ''
-    })
+    const [userProfile, setUserProfile] = useState<UserProfile | null>(null)
     const [financialSummary, setFinancialSummary] = useState<FinancialSummary | null>(null)
     const [categoryExpenses, setCategoryExpenses] = useState<CategoryExpense[]>([])
     const [monthlyData, setMonthlyData] = useState<{
@@ -48,20 +45,28 @@ export default function Dashboard() {
                 return
             }
             setUser(currentUser)
-            // ESTO AÚN DEBO VERLO EN LA TABLA PARA CORROBORAR LOS DATOS
-            // if (currentUser.user_metadata) {
-            //     setProfileData({
-            //         name: currentUser.user_metadata.name || '',
-            //         phone: currentUser.user_metadata.phone || '',
-            //         occupation: currentUser.user_metadata.occupation || ''
-            //     })
-            // }
             await loadFinancialData(currentUser.id)
+            await loadUserProfile(currentUser.id)
         } catch (error) {
             console.error('Error verificando el usuario:', error)
             router.push('/login')
         } finally {
             setLoading(false)
+        }
+    }
+
+    console.log(userProfile)
+
+    const loadUserProfile = async (userId: string) => {
+        try {
+            const { data, error } = await getProfile(userId)
+            if (data) {
+                setUserProfile(data)
+            } else if (error) {
+                console.error('Error cargando perfil:', error)
+            }
+        } catch (error) {
+            console.error('Error cargando perfil:', error)
         }
     }
 
@@ -101,7 +106,7 @@ export default function Dashboard() {
                     <h1>💰 FinanzasPro Dashboard</h1>
                     <div className={theme.headerActions}>
                         <span className={theme.userWelcome}>
-                            Hola, amante de los ravioles
+                            Hola, {userProfile?.full_name || user?.email}
                         </span>
                         <button
                             onClick={() => setShowProfileEdit(true)}
