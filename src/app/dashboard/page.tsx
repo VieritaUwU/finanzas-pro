@@ -4,9 +4,17 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { auth } from '@/lib/supabase'
 import { BarChart3, TrendingUp } from 'lucide-react'
+import {
+  FinancialSummary,
+  CategoryExpense 
+} from '@/lib/database'
+import { OverviewSection } from '@/components/dashboard'
 import theme from './dashboard.module.scss'
 
 export default function Dashboard() {
+    const [financialSummary, setFinancialSummary] = useState<FinancialSummary | null>(null)
+    const [categoryExpenses, setCategoryExpenses] = useState<CategoryExpense[]>([])
+    const [dataLoading, setDataLoading] = useState(false)
     const [activeTab, setActiveTab] = useState('overview')
     const router = useRouter()
 
@@ -59,6 +67,15 @@ export default function Dashboard() {
                         Gráficas
                     </button>
                 </nav>
+
+                <div className={theme.dashboardContent}>
+                    {activeTab === 'overview' && (
+                        <OverviewSection
+                            financialSummary={financialSummary}
+                            dataLoading={dataLoading}
+                        />
+                    )}
+                </div>
             </main>
         </div>
     )
