@@ -6,6 +6,9 @@ import { auth } from '@/lib/supabase'
 import { AuthUser } from '@/lib/supabase'
 import { BarChart3, TrendingUp } from 'lucide-react'
 import {
+    getFinancialSummary,
+    getExpensesByCategory,
+    getMonthlyData,
     FinancialSummary,
     CategoryExpense
 } from '@/lib/database'
@@ -13,17 +16,22 @@ import { OverviewSection } from '@/components/dashboard'
 import theme from './dashboard.module.scss'
 
 export default function Dashboard() {
-  const [user, setUser] = useState<AuthUser | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [activeTab, setActiveTab] = useState('overview')
-  const [showProfileEdit, setShowProfileEdit] = useState(false)
-  const [profileData, setProfileData] = useState({
-    name: '',
-    phone: '',
-    occupation: ''
-  })
+    const [user, setUser] = useState<AuthUser | null>(null)
+    const [loading, setLoading] = useState(true)
+    const [activeTab, setActiveTab] = useState('overview')
+    const [showProfileEdit, setShowProfileEdit] = useState(false)
+    const [profileData, setProfileData] = useState({
+        name: '',
+        phone: '',
+        occupation: ''
+    })
     const [financialSummary, setFinancialSummary] = useState<FinancialSummary | null>(null)
     const [categoryExpenses, setCategoryExpenses] = useState<CategoryExpense[]>([])
+    const [monthlyData, setMonthlyData] = useState<{
+        labels: string[]
+        income: number[]
+        expenses: number[]
+    }>({ labels: [], income: [], expenses: [] })
     const [dataLoading, setDataLoading] = useState(false)
     const router = useRouter()
 
@@ -48,11 +56,32 @@ export default function Dashboard() {
             //         occupation: currentUser.user_metadata.occupation || ''
             //     })
             // }
+            await loadFinancialData(currentUser.id)
         } catch (error) {
             console.error('Error verificando el usuario:', error)
             router.push('/login')
         } finally {
             setLoading(false)
+        }
+    }
+
+    const loadFinancialData = async (userId: string) => {
+        try {
+            setDataLoading(true)
+
+            const summary = await getFinancialSummary(userId)
+            setFinancialSummary(summary)
+
+            const expenses = await getExpensesByCategory(userId)
+            setCategoryExpenses(expenses)
+
+            const monthly = await getMonthlyData(userId, 6)
+            setMonthlyData(monthly)
+
+        } catch (error) {
+            console.error('Error cargando datos financieros:', error)
+        } finally {
+            setDataLoading(false)
         }
     }
 
