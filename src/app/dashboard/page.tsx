@@ -1,22 +1,60 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { auth } from '@/lib/supabase'
+import { AuthUser } from '@/lib/supabase'
 import { BarChart3, TrendingUp } from 'lucide-react'
 import {
-  FinancialSummary,
-  CategoryExpense 
+    FinancialSummary,
+    CategoryExpense
 } from '@/lib/database'
 import { OverviewSection } from '@/components/dashboard'
 import theme from './dashboard.module.scss'
 
 export default function Dashboard() {
+  const [user, setUser] = useState<AuthUser | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [activeTab, setActiveTab] = useState('overview')
+  const [showProfileEdit, setShowProfileEdit] = useState(false)
+  const [profileData, setProfileData] = useState({
+    name: '',
+    phone: '',
+    occupation: ''
+  })
     const [financialSummary, setFinancialSummary] = useState<FinancialSummary | null>(null)
     const [categoryExpenses, setCategoryExpenses] = useState<CategoryExpense[]>([])
     const [dataLoading, setDataLoading] = useState(false)
-    const [activeTab, setActiveTab] = useState('overview')
     const router = useRouter()
+
+    useEffect(() => {
+        checkUser()
+    }, [])
+
+    const checkUser = async () => {
+        try {
+            const { user: currentUser, error } = await auth.getCurrentUser()
+            console.log('currentUser', currentUser)
+            if (!currentUser || error || !currentUser.email) {
+                router.push('/login')
+                return
+            }
+            setUser(currentUser)
+            // ESTO AÚN DEBO VERLO EN LA TABLA PARA CORROBORAR LOS DATOS
+            // if (currentUser.user_metadata) {
+            //     setProfileData({
+            //         name: currentUser.user_metadata.name || '',
+            //         phone: currentUser.user_metadata.phone || '',
+            //         occupation: currentUser.user_metadata.occupation || ''
+            //     })
+            // }
+        } catch (error) {
+            console.error('Error verificando el usuario:', error)
+            router.push('/login')
+        } finally {
+            setLoading(false)
+        }
+    }
 
     const handleSignOut = async () => {
         try {

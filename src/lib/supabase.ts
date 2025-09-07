@@ -8,10 +8,13 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 // Types for auth
 export type AuthUser = {
   id: string
-  email: string
+  email?: string
   user_metadata?: {
     full_name?: string
     avatar_url?: string
+    // name?: string
+    // phone?: string
+    // occupation?: string
   }
 }
 

@@ -1,2 +1,2 @@
 export { default as OverviewSection } from './overviewSection'
-export { default as StatCard } from './statCard'
+export { default as StatCard } from './StatCard'

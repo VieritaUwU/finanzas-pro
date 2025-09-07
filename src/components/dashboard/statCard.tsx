@@ -6,7 +6,7 @@ interface StatCardProps {
   change?: string
   type?: 'positive' | 'negative' | 'neutral'
   changeType?: 'positive' | 'negative' | 'neutral'
-  theme?: {
+  className?: {
     statCard?: string
     statValue?: string
     statChange?: string
@@ -19,7 +19,7 @@ export default function StatCard({
   change,
   type = 'neutral',
   changeType = 'neutral',
-  theme
+  className: theme
 }: StatCardProps) {
   const formatValue = (val: string | number) => {
     if (typeof val === 'number') {
