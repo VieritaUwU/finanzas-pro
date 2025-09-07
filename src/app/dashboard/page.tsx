@@ -73,6 +73,7 @@ export default function Dashboard() {
                         <OverviewSection
                             financialSummary={financialSummary}
                             dataLoading={dataLoading}
+                            theme={theme}
                         />
                     )}
                 </div>

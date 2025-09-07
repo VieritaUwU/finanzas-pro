@@ -36,7 +36,7 @@ export default function OverviewSection({ financialSummary, dataLoading, theme }
           change={financialSummary?.totalBalance && financialSummary.totalBalance >= 0 ? 'Balance positivo' : 'Balance negativo'}
           type={financialSummary?.totalBalance && financialSummary.totalBalance >= 0 ? 'positive' : 'negative'}
           changeType="neutral"
-          className={{
+          theme={{
             statCard: theme?.statCard,
             statValue: theme?.statValue,
             statChange: theme?.statChange
@@ -52,7 +52,7 @@ export default function OverviewSection({ financialSummary, dataLoading, theme }
           }
           type="neutral"
           changeType={financialSummary?.incomeChange && financialSummary.incomeChange >= 0 ? 'positive' : 'negative'}
-          className={{
+          theme={{
             statCard: theme?.statCard,
             statValue: theme?.statValue,
             statChange: theme?.statChange
@@ -68,7 +68,7 @@ export default function OverviewSection({ financialSummary, dataLoading, theme }
           }
           type="negative"
           changeType={financialSummary?.expenseChange && financialSummary.expenseChange <= 0 ? 'positive' : 'negative'}
-          className={{
+          theme={{
             statCard: theme?.statCard,
             statValue: theme?.statValue,
             statChange: theme?.statChange
@@ -84,7 +84,7 @@ export default function OverviewSection({ financialSummary, dataLoading, theme }
           }
           type={financialSummary?.savings && financialSummary.savings >= 0 ? 'positive' : 'negative'}
           changeType="neutral"
-          className={{
+          theme={{
             statCard: theme?.statCard,
             statValue: theme?.statValue,
             statChange: theme?.statChange
