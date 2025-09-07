@@ -71,7 +71,6 @@ CREATE TABLE profiles (
   full_name TEXT,
   avatar_url TEXT,
   phone TEXT,
-  website TEXT,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
@@ -110,6 +109,26 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 CREATE TRIGGER on_auth_user_created
   AFTER INSERT ON auth.users
   FOR EACH ROW EXECUTE FUNCTION public.handle_new_user();
+
+-- Crear bucket para avatares
+INSERT INTO storage.buckets (id, name, public)
+VALUES ('avatars', 'avatars', true);
+
+-- Políticas de storage para avatares
+CREATE POLICY "Avatar images are publicly accessible" ON storage.objects
+  FOR SELECT USING (bucket_id = 'avatars');
+
+-- Política para subir avatares (solo usuarios autenticados)
+CREATE POLICY "Anyone can upload an avatar" ON storage.objects
+  FOR INSERT WITH CHECK (bucket_id = 'avatars' AND auth.role() = 'authenticated');
+
+-- Política para actualizar avatares (solo el propietario)
+CREATE POLICY "Anyone can update their own avatar" ON storage.objects
+  FOR UPDATE USING (auth.uid()::text = (storage.foldername(name))[1]);
+
+-- Política para eliminar avatares (solo el propietario)
+CREATE POLICY "Anyone can delete their own avatar" ON storage.objects
+  FOR DELETE USING (auth.uid()::text = (storage.foldername(name))[1]);
 ```
 
 ### 3. Obtener Credenciales
