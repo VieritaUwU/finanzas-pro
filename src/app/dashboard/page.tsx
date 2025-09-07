@@ -12,7 +12,7 @@ import {
     FinancialSummary,
     CategoryExpense
 } from '@/lib/database'
-import { OverviewSection, ChartsSection } from '@/components/dashboard'
+import { OverviewSection, ChartsSection, ProfileEditModal } from '@/components/dashboard'
 import theme from './dashboard.module.scss'
 
 export default function Dashboard() {
@@ -103,7 +103,10 @@ export default function Dashboard() {
                         <span className={theme.userWelcome}>
                             Hola, amante de los ravioles
                         </span>
-                        <button className={`btn btn-secondary`}>
+                        <button
+                            onClick={() => setShowProfileEdit(true)}
+                            className={`btn btn-secondary`}
+                        >
                             Editar Perfil
                         </button>
                         <button onClick={handleSignOut} className={`btn btn-outline`}>
@@ -154,6 +157,13 @@ export default function Dashboard() {
                     )}
                 </div>
             </main>
+
+            <ProfileEditModal
+                isOpen={showProfileEdit}
+                onClose={() => setShowProfileEdit(false)}
+                // onProfileUpdate={handleProfileUpdate}
+                className={theme}
+            />
         </div>
     )
 }
